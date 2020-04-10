@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Boiler Plate</title>
+
+      <meta charset="utf-8" />
+      <style>
+         @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+         body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+               'Lucida Sans', Arial, sans-serif;
+         }
+      </style>
+      <script>
+         function myFunction() {
+            //console.log('calling promise');
+            //myPromise.then(onResolved, onRejected);
+            console.log('about to call trigger');
+            trigger();
+         }
+
+         var myPromise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+               if (Math.random() * 100 < 90) {
+                  // this promise resolves before function is called
+                  // does not fire new each time button clicked
+                  console.log('resolving the promise ...');
+                  resolve('Hello, Promises!');
+               }
+               reject(new Error('In 10% of the cases, I fail. Miserably.'));
+            }, 2000);
+         });
+
+         const onResolved = (resolvedValue) => console.log(resolvedValue);
+         const onRejected = (error) => console.log(error);
+         ///// now await
+         function slowFunction() {
+            return new Promise((resolve) => {
+               setTimeout(() => {
+                  resolve('here is the return');
+               }, 1000);
+            });
+         }
+
+         async function trigger() {
+            console.log('triggered');
+            var res = await slowFunction();
+            console.log(res);
+         }
+      </script>
+   </head>
+   <body>
+      <br />
+      <div class="container">
+         <button onclick="myFunction()">Click me</button>
+      </div>
+   </body>
+</html>
